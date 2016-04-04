@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{37F895C9-2472-4C7F-8EAE-45699C40F752}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EfficientJsonImporter</RootNamespace>
+    <AssemblyName>EfficientJsonImporter</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>Libs\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EfficientJsonHandling.cs" />
+    <Compile Include="EfficientXmlImport.cs" />
+    <Compile Include="SerializationClasses\PostHistory.cs" />
+    <Compile Include="SerializationClasses\Badges.cs" />
+    <Compile Include="SerializationClasses\Users.cs" />
+    <Compile Include="SerializationClasses\Votes.cs" />
+    <Compile Include="SerializationClasses\Tags.cs" />
+    <Compile Include="SerializationClasses\Comments.cs" />
+    <Compile Include="SerializationClasses\Posts.cs" />
+    <Compile Include="SerializationClasses\TabularData.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Libs\" />
+    <Folder Include="Libs\Newtonsoft.json\" />
+    <Folder Include="Libs\Newtonsoft.json\8.0.3\" />
+    <Folder Include="SerializationClasses\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll" />
+    <None Include="Libs\Npgsql.dll" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+﻿<Properties StartupItem="EfficientJsonImporter/EfficientJsonImporter.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="EfficientJsonImporter/SerializationClasses/Comments.cs">
+    <Files>
+      <File FileName="EfficientJsonImporter/EfficientXmlImport.cs" Line="70" Column="1" />
+      <File FileName="EfficientJsonImporter/SerializationClasses/Badges.cs" Line="38" Column="14" />
+      <File FileName="EfficientJsonImporter/SerializationClasses/Comments.cs" Line="34" Column="20" />
+      <File FileName="EfficientJsonImporter/SerializationClasses/TabularData.cs" Line="2" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/root/Projects/EfficientJsonImporter/EfficientJsonImporter/EfficientXmlImport.cs" line="114" column="61" />
+      <Breakpoint file="/root/Projects/EfficientJsonImporter/EfficientJsonImporter/EfficientXmlImport.cs" line="84" column="1" />
+      <Breakpoint file="/root/Projects/EfficientJsonImporter/EfficientJsonImporter/EfficientXmlImport.cs" line="70" column="1" />
+      <Breakpoint file="/root/Projects/EfficientJsonImporter/EfficientJsonImporter/EfficientXmlImport.cs" line="77" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
