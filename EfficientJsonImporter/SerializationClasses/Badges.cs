@@ -3,15 +3,15 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 
 
-namespace EfficientJsonImporter.Xml2CSharp
+namespace Xml2CSharp
 {
 
 
     [XmlRoot(ElementName = "row")]
-    public class Badge : TabularData
+    public class Badge : EfficientJsonImporter.TabularData
     {
         [XmlAttribute(AttributeName = "Id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [XmlAttribute(AttributeName = "UserId")]
         public long UserId { get; set; }
@@ -27,7 +27,7 @@ namespace EfficientJsonImporter.Xml2CSharp
 
         [XmlAttribute(AttributeName = "TagBased")]
         //public bool TagBased { get; set; }
-        public string TagBased { get; set; }
+        public string TagBased { get; set; } // not null
 
 
 
@@ -41,16 +41,18 @@ namespace EfficientJsonImporter.Xml2CSharp
 
         public override void InsertRow(System.Text.StringBuilder sb)
         {
-            string strSQL =@"
-    INSERT INTO badges(id, userid, name, date) 
-    VALUES ({0}, {1}, {2}, {3}); 
-    ";
+            string strSQL = @"
+INSERT INTO badges(Id, UserId, Name, Date, Class, TagBased) 
+VALUES ({0}, {1}, {2}, {3}, {4}, {5}); 
+";
 
             sb.AppendFormat(strSQL
-                ,this.Id
-                ,this.UserId
-                ,this.Name != null ? "'" + this.Name.Replace("'","''") + "'" : "NULL"
-                ,this.Date.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff")
+                , this.Id
+                , this.InsertNumber(this.UserId)
+                , this.InsertString(this.Name)
+                , this.InsertDate(this.Date)
+                , this.InsertNumber(this.Class)
+                , this.InsertBit(this.TagBased)
             );
         }
 

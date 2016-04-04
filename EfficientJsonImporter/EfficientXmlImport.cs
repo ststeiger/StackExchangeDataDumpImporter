@@ -6,43 +6,31 @@ namespace EfficientJsonImporter
     public class EfficientXmlImport
     {
 
-
-        public EfficientXmlImport()
-        { }
-
-
-        public static string GetConnectionString()
-        {
-            string str = @"CREATE ROLE stackexchangeimporter LOGIN PASSWORD '123' 
-SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;
-";
-
-            Npgsql.NpgsqlConnectionStringBuilder csb = new Npgsql.NpgsqlConnectionStringBuilder();
-            csb.UserName = "stackexchangeimporter";
-            csb.Password = "123";
-            csb.Port = 5432;    
-            csb.Database = "startups";
-            csb.Host = "127.0.0.1";
-
-            return csb.ToString();
-        } // End Function GetConnectionString
-
-
-
         public static void EfficientTest()
         {
-            Parse<EfficientJsonImporter.Xml2CSharp.Badge>();
+            Parse<Xml2CSharp.User>();
+            Parse<Xml2CSharp.Badge>();
+            Parse<Xml2CSharp.Tag>();
+
+            Parse<Xml2CSharp.Post>();
+            Parse<Xml2CSharp.HistoryPost>();
+            Parse<Xml2CSharp.Comment>();
+            
+            Parse<Xml2CSharp.Vote>();
+            System.Console.WriteLine("Finished");
         }
 
 
         public static void Parse<T>()  where T: TabularData
         {
-            Parse<T>(270);
+            Parse<T>(1);
         }
 
         public static void Parse<T>(int batchSize)  where T: TabularData
         {
-            string fileName = @"/root/Downloads/startups.stackexchange.com/";
+            string fileName = @"D:\username\Documents\Downloads\startups.stackexchange.com";
+            if(System.Environment.OSVersion.Platform == System.PlatformID.Unix)
+                fileName = @"/root/Downloads/startups.stackexchange.com/";
 
             TabularData tdFile = (TabularData) (object) System.Activator.CreateInstance<T>();
             fileName = System.IO.Path.Combine(fileName, tdFile.FileName);
@@ -67,19 +55,20 @@ SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;
                     if(iRowCounter % batchSize == 0)
                     {
                         string str = sb.ToString();
-                        System.Console.WriteLine(str);
+                        SQL.ExecuteNonQuery(str);
                         sb.Length = 0;
                     }
                 }
 
                 if(sb.Length > 0)
                 {
-                    System.Console.WriteLine(sb.ToString());
+                    string str = sb.ToString();
+                    SQL.ExecuteNonQuery(str);
                     sb.Length = 0;
                 }
 
                 // Cleanup...
-                xmlReader.Close();
+                 xmlReader.Close();
             }
 
         }
@@ -101,7 +90,7 @@ SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;
                     // corrected for bug noted by Wes below...
                     if(reader.NodeType == System.Xml.XmlNodeType.Element && reader.Name.Equals("row"))
                     {
-                        
+
                         if(reader.HasAttributes)
                         {
                             while (reader.MoveToNextAttribute())

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,6 +30,14 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Polenter.SharpSerializer, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\Polenter.SharpSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll</HintPath>
@@ -54,16 +62,32 @@
     <Compile Include="SerializationClasses\Comments.cs" />
     <Compile Include="SerializationClasses\Posts.cs" />
     <Compile Include="SerializationClasses\TabularData.cs" />
+    <Compile Include="SQL.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Libs\" />
-    <Folder Include="Libs\Newtonsoft.json\" />
-    <Folder Include="Libs\Newtonsoft.json\8.0.3\" />
-    <Folder Include="SerializationClasses\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll" />
     <None Include="Libs\Npgsql.dll" />
+    <None Include="SQL\information_schema_columns.csv" />
+    <None Include="SQL\information_schema_columns.DE.SemicolonSeparated.csv" />
+    <None Include="SQL\information_schema_columns.DE.SemicolonSeparated.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HTML\FlatIconMain.txt" />
+    <Content Include="HTML\flatIcon_lvl_1.txt" />
+    <Content Include="Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll" />
+    <Content Include="Libs\Polenter.SharpSerializer.dll" />
+    <Content Include="Libs\Polenter.SharpSerializer.Portable.dll" />
+    <Content Include="SQL\04b_CreateSchema_PG_SQL.sql" />
+    <Content Include="SQL\06_ADD_PK.sql" />
+    <Content Include="SQL\04a_CreateSchema_MS_SQL.sql" />
+    <Content Include="SQL\05_Infer_PK.sql" />
+    <Content Include="SQL\03_InferSchema.sql" />
+    <Content Include="SQL\01_SchemaQuery.sql" />
+    <Content Include="SQL\02_stackoverflow_schema.sql" />
+    <Content Include="SQL\08_ClearData.sql" />
+    <Content Include="SQL\07_Infer_ClearData.sql" />
+    <Content Include="SQL\09_CheckImport.sql" />
   </ItemGroup>
 </Project>
