@@ -13,14 +13,14 @@ namespace EfficientJsonImporter
         public string FileName;
 
         public bool IsMeta;
-    }
+    } // End Class DataDump 
 
 
     public class DataDumpArchive
     {
 
 
-        public static string MapProjectPath(string path)
+        private static string MapProjectPath(string path)
         {
             System.Reflection.Assembly ass = System.Reflection.Assembly.GetExecutingAssembly();
             string basePath = System.IO.Path.GetDirectoryName(ass.Location);
@@ -30,7 +30,7 @@ namespace EfficientJsonImporter
         } // End Function MapProjectPath 
 
 
-        public static int UnitFactor(string unit)
+        private static int UnitFactor(string unit)
         {
             if (System.StringComparer.InvariantCultureIgnoreCase.Equals(unit, "G"))
                 return 1024 * 1024 * 1024;
@@ -45,7 +45,7 @@ namespace EfficientJsonImporter
         } // End Function UnitFactor 
 
 
-        public static System.Collections.Generic.List<DataDump> GetPossibleStackOverflowDataDumps()
+        public static System.Collections.Generic.List<DataDump> GetPossibleStackExchangeDataDumps()
         {
             System.Collections.Generic.List<DataDump> ls = new System.Collections.Generic.List<DataDump>();
 
@@ -120,9 +120,7 @@ namespace EfficientJsonImporter
 
             System.Diagnostics.Debug.WriteLine("Finished ! ");
             return ls;
-        } // End Function GetPossibleStackOverflowDataDumps 
-
-        
+        } // End Function GetPossibleStackExchangeDataDumps 
 
 
     } // End Class DataDumpArchive
