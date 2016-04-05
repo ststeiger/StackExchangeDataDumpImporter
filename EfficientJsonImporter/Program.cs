@@ -10,8 +10,8 @@ namespace EfficientJsonImporter
         public static void Main(string[] args)
         {
             System.Collections.Generic.List<DataDump> ls = DataDumpArchive.GetPossibleStackExchangeDataDumps();
-            // EfficientXmlImport.Test();
-            // EfficientXmlImport.EfficientTest();
+            // EfficientXmlImport.HorribleFirstAttempt();
+            EfficientXmlImport.Test();
 
             System.Console.WriteLine(ls);
 

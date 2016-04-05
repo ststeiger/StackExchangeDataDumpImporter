@@ -7,7 +7,7 @@ namespace EfficientJsonImporter
     {
 
 
-        public static void EfficientTest()
+        public static void Test()
         {
             Parse<Xml2CSharp.User>();
             Parse<Xml2CSharp.Badge>();
@@ -78,7 +78,7 @@ namespace EfficientJsonImporter
 
 
         // string strSQL = @"SELECT * FROM information_schema.columns WHERE lower(table_name) = lower(@__colname)";
-        public static void Test()
+        public static void HorribleFirstAttempt()
         {
             string fileName = @"/root/Downloads/startups.stackexchange.com/Badges.xml";
 
