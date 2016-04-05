@@ -9,7 +9,7 @@ namespace EfficientJsonImporter
 
         public static void Main(string[] args)
         {
-            IconDownloader.Test();
+            DataDumpArchive.GetPossibleStackOverflowDataDumps();
             // EfficientXmlImport.Test();
             // EfficientXmlImport.EfficientTest();
             System.Console.WriteLine("Hello World!");
@@ -19,4 +19,4 @@ namespace EfficientJsonImporter
     } // End Class
 
 
-}
+} // End Namespace EfficientJsonImporter 

@@ -19,13 +19,13 @@ namespace EfficientJsonImporter
             
             Parse<Xml2CSharp.Vote>();
             System.Console.WriteLine("Finished");
-        }
+        } // End Sub EfficientTest 
 
 
         public static void Parse<T>()  where T: TabularData
         {
             Parse<T>(250);
-        }
+        } // End Sub Parse 
 
 
         public static void Parse<T>(int batchSize)  where T: TabularData
@@ -72,7 +72,7 @@ namespace EfficientJsonImporter
 
                 // Cleanup...
                  xmlReader.Close();
-            }
+            } // End Using xmlReader 
 
         } // End Sub Parse<T>(int batchSize)  where T: TabularData
 
