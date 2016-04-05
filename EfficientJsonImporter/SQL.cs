@@ -86,14 +86,14 @@ namespace EfficientJsonImporter
 
 
 
-        protected static string strStaticConnectionString = null;
-        protected static string m_DataProvider = null;
+        protected static string m_staticConnectionString;
+        protected static string m_DataProvider;
 
         public static string GetConnectionString()
         {
             string strReturnValue = null;
 
-            if (string.IsNullOrEmpty(strStaticConnectionString))
+            if (string.IsNullOrEmpty(m_staticConnectionString))
             {
                 string strConnectionStringName = System.Environment.MachineName;
 
@@ -110,6 +110,7 @@ namespace EfficientJsonImporter
                         if (System.StringComparer.OrdinalIgnoreCase.Equals(cs.Name, strConnectionStringName))
                         {
                             strReturnValue = cs.ConnectionString;
+                            m_staticConnectionString = strReturnValue;
                             m_DataProvider = cs.ProviderName;
                             break; // TODO: might not be correct. Was : Exit For
                         }
@@ -138,12 +139,11 @@ namespace EfficientJsonImporter
             }
             else // of if (string.IsNullOrEmpty(strStaticConnectionString))
             {
-                return strStaticConnectionString;
+                return m_staticConnectionString;
             }
 
             return strReturnValue;
         } // End Function GetConnectionString
-
 
 
         public static System.Data.Common.DbConnection GetConnection()

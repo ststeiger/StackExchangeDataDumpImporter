@@ -30,10 +30,6 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpCompress, Version=2016.4.5.1730, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\SharpCompress.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll</HintPath>
@@ -47,6 +43,9 @@
     <Reference Include="System.Data" />
     <Reference Include="HtmlAgilityPack">
       <HintPath>Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress">
+      <HintPath>Libs\SharpCompress.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +63,7 @@
     <Compile Include="SerializationClasses\Posts.cs" />
     <Compile Include="SerializationClasses\TabularData.cs" />
     <Compile Include="SQL.cs" />
+    <Compile Include="SevenZip.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
