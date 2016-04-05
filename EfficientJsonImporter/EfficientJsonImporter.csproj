@@ -30,6 +30,10 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharpCompress, Version=2016.4.5.1730, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\SharpCompress.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll</HintPath>
@@ -43,9 +47,6 @@
     <Reference Include="System.Data" />
     <Reference Include="HtmlAgilityPack">
       <HintPath>Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="Polenter.SharpSerializer">
-      <HintPath>Libs\Polenter.SharpSerializer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -80,8 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll" />
-    <Content Include="Libs\Polenter.SharpSerializer.dll" />
-    <Content Include="Libs\Polenter.SharpSerializer.Portable.dll" />
+    <Content Include="Libs\SharpCompress.dll" />
     <Content Include="SQL\04b_CreateSchema_MySQL.sql" />
     <Content Include="SQL\04b_CreateSchema_PG_SQL.sql" />
     <Content Include="SQL\06_ADD_PK.sql" />
