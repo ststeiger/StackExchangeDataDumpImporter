@@ -31,7 +31,12 @@ namespace EfficientJsonImporter
 
         public static System.Data.Common.DbProviderFactory InitializeFactory()
         {
-            if(System.Environment.OSVersion.Platform == System.PlatformID.Unix)
+            GetConnectionString();
+
+            if (System.StringComparer.InvariantCultureIgnoreCase.Equals(m_DataProvider, typeof(System.Data.SqlClient.SqlClientFactory).Namespace))
+                return GetFactory(typeof(System.Data.SqlClient.SqlClientFactory));
+
+            if (System.StringComparer.InvariantCultureIgnoreCase.Equals(m_DataProvider, typeof(Npgsql.NpgsqlFactory).Namespace))
                 return GetFactory(typeof(Npgsql.NpgsqlFactory));
 
             return GetFactory(typeof(System.Data.SqlClient.SqlClientFactory));
@@ -80,50 +85,65 @@ namespace EfficientJsonImporter
         } // End Function Notify 
 
 
-        public static string GetMsConnectionString()
-        {
-            System.Data.SqlClient.SqlConnectionStringBuilder csb = new System.Data.SqlClient.SqlConnectionStringBuilder();
-            csb.IntegratedSecurity = true;
 
-            if (!csb.IntegratedSecurity)
-            {
-                csb.UserID = "ArtImportWebServices";
-                csb.Password = "TOP_SECRET";
-            }
-
-            csb.DataSource = System.Environment.MachineName;
-            csb.InitialCatalog = "StackExchange";
-
-            return csb.ConnectionString;
-        } // End Function GetConnectionString 
-
-
-        public static string GetPgConnectionString()
-        {
-            string strTODO = @"CREATE ROLE stackexchangeimporter LOGIN PASSWORD '123' 
-SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;
-";
-            System.Console.WriteLine(strTODO);
-
-            Npgsql.NpgsqlConnectionStringBuilder csb = new Npgsql.NpgsqlConnectionStringBuilder();
-            csb.UserName = "stackexchangeimporter";
-            csb.Password = "123";
-            csb.Port = 5432;
-            csb.Database = "stackexchange";
-            csb.Host = "127.0.0.1";
-
-            return csb.ToString();
-        } // End Function GetConnectionString
-
-
+        protected static string strStaticConnectionString = null;
+        protected static string m_DataProvider = null;
 
         public static string GetConnectionString()
         {
-            if (SQL.m_fact is System.Data.SqlClient.SqlClientFactory)
-                return GetMsConnectionString();
+            string strReturnValue = null;
 
-            return GetPgConnectionString();
-        }
+            if (string.IsNullOrEmpty(strStaticConnectionString))
+            {
+                string strConnectionStringName = System.Environment.MachineName;
+
+                if (string.IsNullOrEmpty(strConnectionStringName))
+                {
+                    strConnectionStringName = "LocalSqlServer";
+                }
+
+                System.Configuration.ConnectionStringSettingsCollection settings = System.Configuration.ConfigurationManager.ConnectionStrings;
+                if ((settings != null))
+                {
+                    foreach (System.Configuration.ConnectionStringSettings cs in settings)
+                    {
+                        if (System.StringComparer.OrdinalIgnoreCase.Equals(cs.Name, strConnectionStringName))
+                        {
+                            strReturnValue = cs.ConnectionString;
+                            m_DataProvider = cs.ProviderName;
+                            break; // TODO: might not be correct. Was : Exit For
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(strReturnValue))
+                {
+                    strConnectionStringName = "server";
+
+                    System.Configuration.ConnectionStringSettings conString = System.Configuration.ConfigurationManager.ConnectionStrings[strConnectionStringName];
+
+                    if (conString != null)
+                    {
+                        strReturnValue = conString.ConnectionString;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(strReturnValue))
+                {
+                    throw new System.ArgumentNullException("ConnectionString \"" + strConnectionStringName + "\" in file web.config.");
+                }
+
+                settings = null;
+                strConnectionStringName = null;
+            }
+            else // of if (string.IsNullOrEmpty(strStaticConnectionString))
+            {
+                return strStaticConnectionString;
+            }
+
+            return strReturnValue;
+        } // End Function GetConnectionString
+
 
 
         public static System.Data.Common.DbConnection GetConnection()

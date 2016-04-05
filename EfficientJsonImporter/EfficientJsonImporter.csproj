@@ -37,6 +37,7 @@
     <Reference Include="Npgsql">
       <HintPath>Libs\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
@@ -66,6 +67,10 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="connections.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll" />
     <None Include="Libs\Npgsql.dll" />
     <None Include="SQL\information_schema_columns.csv" />
