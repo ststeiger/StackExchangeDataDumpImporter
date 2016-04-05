@@ -74,8 +74,6 @@
     <None Include="HTML\stack_exchange_data_dumps.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HTML\FlatIconMain.txt" />
-    <Content Include="HTML\flatIcon_lvl_1.txt" />
     <Content Include="Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll" />
     <Content Include="Libs\Polenter.SharpSerializer.dll" />
     <Content Include="Libs\Polenter.SharpSerializer.Portable.dll" />
