@@ -16,12 +16,12 @@ namespace EfficientJsonImporter
         } // End Function IsNullable
 
 
-        private static object MyChangeType(object objVal, System.Type t)
+        private static object NullableCapableChangeType(object objVal, System.Type t)
         {
             if (objVal == null || object.ReferenceEquals(objVal, System.DBNull.Value))
             {
                 return null;
-            }
+            } // End if (objVal == null || object.ReferenceEquals(objVal, System.DBNull.Value)) 
 
             //getbasetype
             System.Type tThisType = objVal.GetType();
@@ -30,12 +30,12 @@ namespace EfficientJsonImporter
             if (bNullable)
             {
                 t = System.Nullable.GetUnderlyingType(t);
-            }
+            } // End if (bNullable)
 
             if (object.ReferenceEquals(t, typeof(string)) && object.ReferenceEquals(tThisType, typeof(System.Guid)))
             {
                 return objVal.ToString();
-            }
+            } // End if (object.ReferenceEquals(t, typeof(string)) && object.ReferenceEquals(tThisType, typeof(System.Guid))) 
 
             if (object.ReferenceEquals(t, typeof(System.Guid)) && object.ReferenceEquals(tThisType, typeof(string)))
             {
@@ -46,11 +46,10 @@ namespace EfficientJsonImporter
                     return null;
                 
                 return new System.Guid(strUID);
-            }
-
+            } // End if (object.ReferenceEquals(t, typeof(System.Guid)) && object.ReferenceEquals(tThisType, typeof(string))) 
 
             return System.Convert.ChangeType(objVal, t);
-        } // End Function MyChangeType
+        } // End Function NullableCapableChangeType
 
 
         public virtual void ReadXml(System.Xml.XmlReader reader)
@@ -74,31 +73,25 @@ namespace EfficientJsonImporter
                         string attrValue = reader.GetAttribute(xmlAttr.AttributeName);
                         // System.Console.WriteLine(attrValue);
 
-                        pi.SetValue(this, MyChangeType(attrValue, pi.PropertyType));
+                        pi.SetValue(this, NullableCapableChangeType(attrValue, pi.PropertyType));
                         break;
                     }
                 } // Next attr
 
             } // Next pi
 
-
-            // string attr1 = reader.GetAttribute("attr1");
-            // string attr2 = reader.GetAttribute("attr2");
-
-            // Value1 = ConvertToNullable<int>(attr1);
-            // Value2 = ConvertToNullable<float>(attr2);
-
             reader.Read();
-        }
+        } // End Sub ReadXml 
 
-        public System.Xml.Schema.XmlSchema GetSchema() { return null; }
+
+        public virtual System.Xml.Schema.XmlSchema GetSchema() { return null; }
 
         // https://stackoverflow.com/questions/3250706/xmlserializer-and-nullable-attributes
         public virtual void WriteXml(System.Xml.XmlWriter writer) 
         { 
             throw new System.NotImplementedException(); 
             // if(this.FileName != null) { writer.WriteValue(this.FileName); }
-        }
+        } // End Sub WriteXml 
 
 
         public abstract string FileName{ get; }
@@ -113,7 +106,7 @@ namespace EfficientJsonImporter
                 return "'" + uid.Value.ToString() + "'" ;
 
             return "NULL";
-        }
+        } // End Function InsertGuid
 
 
         public virtual string InsertBit(string str)
@@ -139,7 +132,7 @@ namespace EfficientJsonImporter
                 return "'false'";
             
             return "'true'";
-        }
+        } // End Function InsertBit
 
 
         public virtual string InsertString(string str)
@@ -148,7 +141,7 @@ namespace EfficientJsonImporter
                 return "NULL";
 
             return "'" + str.Replace("'", "''") + "'";
-        }
+        } // End Function InsertString
 
 
         public virtual string InsertNumber(long? num)
@@ -157,7 +150,7 @@ namespace EfficientJsonImporter
                 return num.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
             
             return "NULL";
-        }
+        } // End Function InsertNumber 
 
 
         public virtual string InsertDate(System.DateTime? dt)
@@ -166,10 +159,10 @@ namespace EfficientJsonImporter
                 return "'" + dt.Value.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff") + "'";
 
             return "NULL";
-        }
-        
-
-    }
+        } // End Function InsertDate 
 
 
-}
+    } // End abstract class TabularData : System.Xml.Serialization.IXmlSerializable
+
+
+} // End Namespace EfficientJsonImporter

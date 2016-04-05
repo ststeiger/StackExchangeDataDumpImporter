@@ -2,36 +2,32 @@
 namespace EfficientJsonImporter
 {
 
-    using System.IO;
-    using Newtonsoft;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
 
     public class EfficientJsonHandling
     {
-        public EfficientJsonHandling()
-        { }
 
 
         public static void Test()
         {
             
-            using (FileStream fs = new FileStream(@"/root/Downloads/startups.stackexchange.com/Badges.xml", FileMode.Open, FileAccess.Read))
-            { 
-                using (StreamReader sr = new StreamReader(fs))
+            using (System.IO.FileStream fs = new System.IO.FileStream(@"/root/Downloads/startups.stackexchange.com/Badges.xml", System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            {
+
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(fs))
                 {
-                    using (JsonTextReader reader = new JsonTextReader(sr))
+
+                    using (Newtonsoft.Json.JsonTextReader reader = new Newtonsoft.Json.JsonTextReader(sr))
                     {
                         while (reader.Read())
                         {
-                            if (reader.TokenType == JsonToken.StartObject)
+
+                            if (reader.TokenType == Newtonsoft.Json.JsonToken.StartObject)
                             {
                                 // Load each object from the stream and do something with it
-                                JObject obj = JObject.Load(reader);
+                                Newtonsoft.Json.Linq.JObject obj = Newtonsoft.Json.Linq.JObject.Load(reader);
                                 System.Console.WriteLine(obj["id"] + " - " + obj["name"]);
+                            } // End if (reader.TokenType == JsonToken.StartObject) 
 
-                            }
                         } // Whend
 
                     } // End Using reader
@@ -40,7 +36,7 @@ namespace EfficientJsonImporter
 
             } // End Using fs
 
-        } // End Sub 
+        } // End Sub Test
 
 
     } // End class EfficientJsonHandling
