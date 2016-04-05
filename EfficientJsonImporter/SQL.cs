@@ -31,7 +31,9 @@ namespace EfficientJsonImporter
 
         public static System.Data.Common.DbProviderFactory InitializeFactory()
         {
-            // return GetFactory(typeof(Npgsql.NpgsqlFactory));
+            if(System.Environment.OSVersion.Platform == System.PlatformID.Unix)
+                return GetFactory(typeof(Npgsql.NpgsqlFactory));
+
             return GetFactory(typeof(System.Data.SqlClient.SqlClientFactory));
         }
 
@@ -107,7 +109,7 @@ SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;
             csb.UserName = "stackexchangeimporter";
             csb.Password = "123";
             csb.Port = 5432;
-            csb.Database = "startups";
+            csb.Database = "stackexchange";
             csb.Host = "127.0.0.1";
 
             return csb.ToString();
@@ -355,7 +357,7 @@ SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;
 
                                     iAffected = -2;
 
-                                    if (Log(ex))
+                                    if (Log(ex, cmd))
                                         throw;
                                 } // End catch
                                 finally

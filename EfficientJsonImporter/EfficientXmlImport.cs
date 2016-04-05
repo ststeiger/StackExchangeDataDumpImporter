@@ -6,6 +6,7 @@ namespace EfficientJsonImporter
     public class EfficientXmlImport
     {
 
+
         public static void EfficientTest()
         {
             Parse<Xml2CSharp.User>();
@@ -23,8 +24,9 @@ namespace EfficientJsonImporter
 
         public static void Parse<T>()  where T: TabularData
         {
-            Parse<T>(1);
+            Parse<T>(250);
         }
+
 
         public static void Parse<T>(int batchSize)  where T: TabularData
         {
@@ -57,26 +59,27 @@ namespace EfficientJsonImporter
                         string str = sb.ToString();
                         SQL.ExecuteNonQuery(str);
                         sb.Length = 0;
-                    }
-                }
+                    } // End if(iRowCounter % batchSize == 0)
+
+                } // Whend 
 
                 if(sb.Length > 0)
                 {
                     string str = sb.ToString();
                     SQL.ExecuteNonQuery(str);
                     sb.Length = 0;
-                }
+                } // End if(sb.Length > 0)
 
                 // Cleanup...
                  xmlReader.Close();
             }
 
-        }
+        } // End Sub Parse<T>(int batchSize)  where T: TabularData
 
+
+        // string strSQL = @"SELECT * FROM information_schema.columns WHERE lower(table_name) = lower(@__colname)";
         public static void Test()
         {
-            string strSQL = @"SELECT * FROM information_schema.columns WHERE lower(table_name) = lower(@__colname)";
-
             string fileName = @"/root/Downloads/startups.stackexchange.com/Badges.xml";
 
             using (System.Xml.XmlReader reader = System.Xml.XmlReader.Create(fileName))

@@ -70,13 +70,14 @@ namespace Xml2CSharp
         {
             string strSQL = @"
 INSERT INTO Users
-( Id, Reputation, CreationDate, DisplayName, LastAccessDate
-, WebsiteUrl, Location, AboutMe, Views, UpVotes, DownVotes
-, ProfileImageUrl, EmailHash, Age, AccountId
+( 
+     Id, Reputation, CreationDate, DisplayName, LastAccessDate
+    ,WebsiteUrl, Location, AboutMe, Views, UpVotes, DownVotes
+    ,ProfileImageUrl, EmailHash, Age, AccountId
 )
 VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}); 
 ";
-
+            
             sb.AppendFormat(strSQL
                 , this.Id
                 , this.InsertNumber(this.Reputation)

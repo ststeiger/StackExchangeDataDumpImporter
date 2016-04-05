@@ -5,16 +5,9 @@ namespace EfficientJsonImporter
 
     public abstract class TabularData : System.Xml.Serialization.IXmlSerializable
     {
-        public TabularData()
-        { }
 
 
-        // public int? Value1 { get; private set; }
-        // public float? Value2 { get; private set; }
-
-
-
-        public static bool IsNullable(System.Type t)
+        private static bool IsNullable(System.Type t)
         {
             if (t == null)
                 return false;
@@ -23,7 +16,7 @@ namespace EfficientJsonImporter
         } // End Function IsNullable
 
 
-        public static object MyChangeType(object objVal, System.Type t)
+        private static object MyChangeType(object objVal, System.Type t)
         {
             if (objVal == null || object.ReferenceEquals(objVal, System.DBNull.Value))
             {
@@ -58,7 +51,6 @@ namespace EfficientJsonImporter
 
             return System.Convert.ChangeType(objVal, t);
         } // End Function MyChangeType
-
 
 
         public virtual void ReadXml(System.Xml.XmlReader reader)
@@ -109,30 +101,7 @@ namespace EfficientJsonImporter
         }
 
 
-        /*
-        private static T? ConvertToNullable<T>(string inputValue) where T : struct
-        {
-            if (string.IsNullOrEmpty(inputValue) || inputValue.Trim().Length == 0)
-            {
-                return null;
-            }
-
-            try
-            {
-                System.ComponentModel.TypeConverter conv = System.ComponentModel.TypeDescriptor.GetConverter(typeof(T));
-                return (T)conv.ConvertFrom(inputValue);
-            }
-            catch (System.NotSupportedException ex)
-            {
-                // The conversion cannot be performed
-                System.Console.WriteLine(ex.Message);
-                return null;
-            }
-        }
-        */
-
         public abstract string FileName{ get; }
-
 
         public abstract void InsertRow(System.Text.StringBuilder sb);
 
@@ -146,6 +115,7 @@ namespace EfficientJsonImporter
             return "NULL";
         }
 
+
         public virtual string InsertBit(string str)
         {
             if (str == null)
@@ -158,10 +128,16 @@ namespace EfficientJsonImporter
 
             if (System.StringComparer.OrdinalIgnoreCase.Equals(str, "false"))
                 return "'false'";
+            
+            if (System.StringComparer.OrdinalIgnoreCase.Equals(str, "yes"))
+                return "'true'";
+
+            if (System.StringComparer.OrdinalIgnoreCase.Equals(str, "no"))
+                return "'false'";
 
             if (System.StringComparer.OrdinalIgnoreCase.Equals(str, "0"))
                 return "'false'";
-
+            
             return "'true'";
         }
 
@@ -174,6 +150,7 @@ namespace EfficientJsonImporter
             return "'" + str.Replace("'", "''") + "'";
         }
 
+
         public virtual string InsertNumber(long? num)
         {
             if (num.HasValue)
@@ -181,6 +158,7 @@ namespace EfficientJsonImporter
             
             return "NULL";
         }
+
 
         public virtual string InsertDate(System.DateTime? dt)
         {
@@ -195,4 +173,3 @@ namespace EfficientJsonImporter
 
 
 }
-

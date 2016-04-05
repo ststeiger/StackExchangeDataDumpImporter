@@ -30,14 +30,6 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="Polenter.SharpSerializer, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\Polenter.SharpSerializer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>Libs\Newtonsoft.json\8.0.3\Newtonsoft.Json.dll</HintPath>
@@ -48,6 +40,12 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Polenter.SharpSerializer">
+      <HintPath>Libs\Polenter.SharpSerializer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -63,6 +61,8 @@
     <Compile Include="SerializationClasses\Posts.cs" />
     <Compile Include="SerializationClasses\TabularData.cs" />
     <Compile Include="SQL.cs" />
+    <Compile Include="DownloadManager.cs" />
+    <Compile Include="IconDownloader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
@@ -72,6 +72,7 @@
     <None Include="SQL\information_schema_columns.csv" />
     <None Include="SQL\information_schema_columns.DE.SemicolonSeparated.csv" />
     <None Include="SQL\information_schema_columns.DE.SemicolonSeparated.xlsx" />
+    <None Include="HTML\stack_exchange_data_dumps.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="HTML\FlatIconMain.txt" />
