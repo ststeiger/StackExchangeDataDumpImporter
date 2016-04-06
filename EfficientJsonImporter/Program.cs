@@ -16,9 +16,12 @@ namespace EfficientJsonImporter
             if(System.Environment.OSVersion.Platform == System.PlatformID.Unix)
                 fn = @"/root/Downloads/startups.stackexchange.com.7z";
 
-            SevenZip.ExtractFile(fn);
+            // SevenZip.ExtractFile(fn);
 
             // EfficientXmlImport.Test();
+
+            EfficientXmlExport.Test();
+
 
             System.Console.WriteLine(ls);
 

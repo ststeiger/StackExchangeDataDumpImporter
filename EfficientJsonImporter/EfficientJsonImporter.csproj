@@ -64,6 +64,7 @@
     <Compile Include="SerializationClasses\TabularData.cs" />
     <Compile Include="SQL.cs" />
     <Compile Include="SevenZip.cs" />
+    <Compile Include="EfficientXmlExport.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />

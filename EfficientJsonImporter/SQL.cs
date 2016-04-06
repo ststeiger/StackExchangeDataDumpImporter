@@ -410,13 +410,32 @@ namespace EfficientJsonImporter
         } // End Function ExecuteNonQuery 
 
 
-        public static System.Data.IDataReader ExecuteReader(System.Data.IDbCommand cmd)
+        public static System.Data.Common.DbDataReader ExecuteReader(string sql)
+        {
+            return ExecuteReader(sql, System.Data.CommandBehavior.CloseConnection);
+        }
+
+
+        public static System.Data.Common.DbDataReader ExecuteReader(string sql, System.Data.CommandBehavior behaviour)
+        {
+            System.Data.Common.DbDataReader dr;
+
+            using (System.Data.IDbCommand cmd = CreateCommand(sql))
+            {
+                dr = ExecuteReader(cmd, behaviour);
+            } // End Using cmd
+
+            return dr;
+        }
+
+
+        public static System.Data.Common.DbDataReader ExecuteReader(System.Data.IDbCommand cmd)
         {
             return ExecuteReader(cmd, System.Data.CommandBehavior.CloseConnection);
         }
 
 
-        public static System.Data.IDataReader ExecuteReader(System.Data.IDbCommand cmd, System.Data.CommandBehavior behav)
+        public static System.Data.Common.DbDataReader ExecuteReader(System.Data.IDbCommand cmd, System.Data.CommandBehavior behav)
         {
             System.Data.IDataReader idr = null;
 
@@ -439,7 +458,7 @@ namespace EfficientJsonImporter
                 }
             } // End Lock cmd
 
-            return idr;
+            return (System.Data.Common.DbDataReader)  idr;
         } // End Function ExecuteReader
 
 
