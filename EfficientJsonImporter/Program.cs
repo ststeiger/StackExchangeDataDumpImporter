@@ -26,8 +26,13 @@ namespace EfficientJsonImporter
             // EfficientXmlImport.HorribleFirstAttempt();
             // EfficientXmlImport.Test();
 
-            EfficientXmlExport.Test();
-            EfficientXmlExport.SerializationTest();
+            // EfficientXmlExport.Test();
+            // EfficientXmlExport.SerializationTest();
+
+
+            EfficientJsonHandling.TestTableSerialization();
+            EfficientJsonHandling.TestSerialize();
+            EfficientJsonHandling.TestDeserialize();
 
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();
