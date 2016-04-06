@@ -21,10 +21,19 @@ namespace EfficientJsonImporter
         } // End Function MapProjectPath 
 
 
+        public static void TestExtract()
+        {
+            string fileName = @"D:\username\Documents\Downloads\startups.stackexchange.com.7z";
+            if (System.Environment.OSVersion.Platform == System.PlatformID.Unix)
+                fileName = @"/root/Downloads/startups.stackexchange.com.7z";
+
+            ExtractFile(fileName);
+        } // End Sub TestExtract 
+
+
         private static long? entryTotal;
         private static long partTotal;
         private static long totalSize;
-
 
         public static void ExtractFile(string fileName)
         {
