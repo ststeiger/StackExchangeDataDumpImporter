@@ -19,7 +19,7 @@ namespace EfficientJsonImporter
 
 
             System.Collections.Generic.List<DataDump> ls = DataDumpArchive.GetPossibleStackExchangeDataDumps();
-            System.Console.WriteLine(ls);
+            System.Console.WriteLine(ls.Count);
 
             // SevenZip.TestExtract();
 

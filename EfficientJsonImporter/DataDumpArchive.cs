@@ -52,6 +52,7 @@ namespace EfficientJsonImporter
             string path = MapProjectPath("HTML/stack_exchange_data_dumps.txt");
             string url = @"https://archive.org/download/stackexchange";
             System.Diagnostics.Debug.WriteLine(path);
+            System.Diagnostics.Debug.WriteLine(url);
 
             HtmlAgilityPack.HtmlWeb page = new HtmlAgilityPack.HtmlWeb();
             // HtmlAgilityPack.HtmlDocument doc = page.Load(url);
