@@ -17,7 +17,7 @@
 
 
 
-CREATE TABLE Badges( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS Badges( Id int NOT NULL
 ,UserId int NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Date timestamp without time zone NOT NULL
@@ -27,7 +27,7 @@ CREATE TABLE Badges( Id int NOT NULL
 
 
 
-CREATE TABLE CloseAsOffTopicReasonTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS CloseAsOffTopicReasonTypes( Id smallint NOT NULL
 ,IsUniversal boolean NOT NULL
 ,MarkdownMini national character varying(500)  NOT NULL
 ,CreationDate timestamp without time zone NOT NULL
@@ -40,14 +40,14 @@ CREATE TABLE CloseAsOffTopicReasonTypes( Id smallint NOT NULL
 
 
 
-CREATE TABLE CloseReasonTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS CloseReasonTypes( Id smallint NOT NULL
 ,Name national character varying(200)  NOT NULL
 ,Description national character varying(500)  
 );
 
 
 
-CREATE TABLE Comments( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS Comments( Id int NOT NULL
 ,PostId int NOT NULL
 ,Score int NOT NULL
 ,Text national character varying(600)  NOT NULL
@@ -58,14 +58,14 @@ CREATE TABLE Comments( Id int NOT NULL
 
 
 
-CREATE TABLE FlagTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS FlagTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Description national character varying(500)  NOT NULL
 );
 
 
 
-CREATE TABLE PendingFlags( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS PendingFlags( Id int NOT NULL
 ,FlagTypeId smallint NOT NULL
 ,PostId int NOT NULL
 ,CreationDate date 
@@ -77,7 +77,7 @@ CREATE TABLE PendingFlags( Id int NOT NULL
 
 
 
-CREATE TABLE PostFeedback( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS PostFeedback( Id int NOT NULL
 ,PostId int NOT NULL
 ,IsAnonymous boolean 
 ,VoteTypeId smallint NOT NULL
@@ -86,7 +86,7 @@ CREATE TABLE PostFeedback( Id int NOT NULL
 
 
 
-CREATE TABLE PostHistory( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS PostHistory( Id int NOT NULL
 ,PostHistoryTypeId smallint NOT NULL
 ,PostId int NOT NULL
 ,RevisionGUID uuid NOT NULL
@@ -99,13 +99,13 @@ CREATE TABLE PostHistory( Id int NOT NULL
 
 
 
-CREATE TABLE PostHistoryTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS PostHistoryTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 );
 
 
 
-CREATE TABLE PostLinks( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS PostLinks( Id int NOT NULL
 ,CreationDate timestamp without time zone NOT NULL
 ,PostId int NOT NULL
 ,RelatedPostId int NOT NULL
@@ -114,7 +114,7 @@ CREATE TABLE PostLinks( Id int NOT NULL
 
 
 
-CREATE TABLE Posts( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS Posts( Id int NOT NULL
 ,PostTypeId smallint NOT NULL
 ,AcceptedAnswerId int 
 ,ParentId int 
@@ -140,7 +140,7 @@ CREATE TABLE Posts( Id int NOT NULL
 
 
 
-CREATE TABLE PostsWithDeleted( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS PostsWithDeleted( Id int NOT NULL
 ,PostTypeId smallint NOT NULL
 ,AcceptedAnswerId int 
 ,ParentId int 
@@ -166,19 +166,19 @@ CREATE TABLE PostsWithDeleted( Id int NOT NULL
 
 
 
-CREATE TABLE PostTags( PostId int NOT NULL
+CREATE TABLE IF NOT EXISTS PostTags( PostId int NOT NULL
 ,TagId int NOT NULL
 );
 
 
 
-CREATE TABLE PostTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS PostTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 );
 
 
 
-CREATE TABLE ReviewRejectionReasons( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS ReviewRejectionReasons( Id smallint NOT NULL
 ,Name national character varying(100)  NOT NULL
 ,Description national character varying(300)  NOT NULL
 ,PostTypeId smallint 
@@ -186,7 +186,7 @@ CREATE TABLE ReviewRejectionReasons( Id smallint NOT NULL
 
 
 
-CREATE TABLE ReviewTaskResults( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS ReviewTaskResults( Id int NOT NULL
 ,ReviewTaskId int NOT NULL
 ,ReviewTaskResultTypeId smallint NOT NULL
 ,CreationDate date 
@@ -196,14 +196,14 @@ CREATE TABLE ReviewTaskResults( Id int NOT NULL
 
 
 
-CREATE TABLE ReviewTaskResultTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS ReviewTaskResultTypes( Id smallint NOT NULL
 ,Name national character varying(100)  NOT NULL
 ,Description national character varying(300)  NOT NULL
 );
 
 
 
-CREATE TABLE ReviewTasks( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS ReviewTasks( Id int NOT NULL
 ,ReviewTaskTypeId smallint NOT NULL
 ,CreationDate date 
 ,DeletionDate date 
@@ -215,21 +215,21 @@ CREATE TABLE ReviewTasks( Id int NOT NULL
 
 
 
-CREATE TABLE ReviewTaskStates( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS ReviewTaskStates( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Description national character varying(300)  NOT NULL
 );
 
 
 
-CREATE TABLE ReviewTaskTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS ReviewTaskTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Description national character varying(300)  NOT NULL
 );
 
 
 
-CREATE TABLE SuggestedEdits( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS SuggestedEdits( Id int NOT NULL
 ,PostId int NOT NULL
 ,CreationDate timestamp without time zone 
 ,ApprovalDate timestamp without time zone 
@@ -244,7 +244,7 @@ CREATE TABLE SuggestedEdits( Id int NOT NULL
 
 
 
-CREATE TABLE SuggestedEditVotes( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS SuggestedEditVotes( Id int NOT NULL
 ,SuggestedEditId int NOT NULL
 ,UserId int NOT NULL
 ,VoteTypeId smallint NOT NULL
@@ -255,7 +255,7 @@ CREATE TABLE SuggestedEditVotes( Id int NOT NULL
 
 
 
-CREATE TABLE Tags( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS Tags( Id int NOT NULL
 ,TagName national character varying(35)  
 ,Count int NOT NULL
 ,ExcerptPostId int 
@@ -264,7 +264,7 @@ CREATE TABLE Tags( Id int NOT NULL
 
 
 
-CREATE TABLE TagSynonyms( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS TagSynonyms( Id int NOT NULL
 ,SourceTagName national character varying(35)  
 ,TargetTagName national character varying(35)  
 ,CreationDate timestamp without time zone NOT NULL
@@ -278,7 +278,7 @@ CREATE TABLE TagSynonyms( Id int NOT NULL
 
 
 
-CREATE TABLE Users( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS Users( Id int NOT NULL
 ,Reputation int NOT NULL
 ,CreationDate timestamp without time zone NOT NULL
 ,DisplayName national character varying(40)  
@@ -297,7 +297,7 @@ CREATE TABLE Users( Id int NOT NULL
 
 
 
-CREATE TABLE Votes( Id int NOT NULL
+CREATE TABLE IF NOT EXISTS Votes( Id int NOT NULL
 ,PostId int NOT NULL
 ,VoteTypeId smallint NOT NULL
 ,UserId int 
@@ -307,6 +307,6 @@ CREATE TABLE Votes( Id int NOT NULL
 
 
 
-CREATE TABLE VoteTypes( Id smallint NOT NULL
+CREATE TABLE IF NOT EXISTS VoteTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 );

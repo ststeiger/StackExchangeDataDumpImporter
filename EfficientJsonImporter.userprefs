@@ -1,11 +1,9 @@
 ﻿<Properties StartupItem="EfficientJsonImporter/EfficientJsonImporter.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="EfficientJsonImporter/SerializationClasses/Comments.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EfficientJsonImporter/EfficientXmlImport.cs">
     <Files>
       <File FileName="EfficientJsonImporter/EfficientXmlImport.cs" Line="70" Column="1" />
-      <File FileName="EfficientJsonImporter/SerializationClasses/Badges.cs" Line="38" Column="14" />
-      <File FileName="EfficientJsonImporter/SerializationClasses/Comments.cs" Line="34" Column="20" />
-      <File FileName="EfficientJsonImporter/SerializationClasses/TabularData.cs" Line="2" Column="32" />
+      <File FileName="EfficientJsonImporter/SerializationClasses/Comments.cs" Line="33" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

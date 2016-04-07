@@ -1,16 +1,33 @@
 
-CREATE TABLE Badges( Id int NOT NULL
+-- SELECT DISTINCT data_type FROM information_schema.columns 
+
+
+-- http://wiki.ispirer.com/sqlways/sql-server/data-types/ntext
+-- http://www.sqlines.com/postgresql/how-to/create_user_defined_type
+
+
+-- uniqueidentifier ==> uuid
+-- datetime ==> datetime
+-- bit ==> boolean
+-- tinyint ==> smallint 
+-- national character varying(MAX)  ==> text
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS Badges( Id int NOT NULL
 ,UserId int NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Date datetime NOT NULL
-,Class tinyint NOT NULL
-,TagBased bit NOT NULL
+,Class smallint NOT NULL
+,TagBased boolean NOT NULL
 );
 
-GO 
 
-CREATE TABLE CloseAsOffTopicReasonTypes( Id smallint NOT NULL
-,IsUniversal bit NOT NULL
+CREATE TABLE IF NOT EXISTS CloseAsOffTopicReasonTypes( Id smallint NOT NULL
+,IsUniversal boolean NOT NULL
 ,MarkdownMini national character varying(500)  NOT NULL
 ,CreationDate datetime NOT NULL
 ,CreationModeratorId int 
@@ -20,16 +37,16 @@ CREATE TABLE CloseAsOffTopicReasonTypes( Id smallint NOT NULL
 ,DeactivationModeratorId int 
 );
 
-GO 
 
-CREATE TABLE CloseReasonTypes( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS CloseReasonTypes( Id smallint NOT NULL
 ,Name national character varying(200)  NOT NULL
 ,Description national character varying(500)  
 );
 
-GO 
 
-CREATE TABLE Comments( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS Comments( Id int NOT NULL
 ,PostId int NOT NULL
 ,Score int NOT NULL
 ,Text national character varying(600)  NOT NULL
@@ -38,73 +55,73 @@ CREATE TABLE Comments( Id int NOT NULL
 ,UserId int 
 );
 
-GO 
 
-CREATE TABLE FlagTypes( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS FlagTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Description national character varying(500)  NOT NULL
 );
 
-GO 
 
-CREATE TABLE PendingFlags( Id int NOT NULL
-,FlagTypeId tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS PendingFlags( Id int NOT NULL
+,FlagTypeId smallint NOT NULL
 ,PostId int NOT NULL
 ,CreationDate date 
-,CloseReasonTypeId tinyint 
+,CloseReasonTypeId smallint 
 ,CloseAsOffTopicReasonTypeId smallint 
 ,DuplicateOfQuestionId int 
 ,BelongsOnBaseHostAddress national character varying(100)  
 );
 
-GO 
 
-CREATE TABLE PostFeedback( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS PostFeedback( Id int NOT NULL
 ,PostId int NOT NULL
-,IsAnonymous bit 
-,VoteTypeId tinyint NOT NULL
+,IsAnonymous boolean 
+,VoteTypeId smallint NOT NULL
 ,CreationDate datetime NOT NULL
 );
 
-GO 
 
-CREATE TABLE PostHistory( Id int NOT NULL
-,PostHistoryTypeId tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS PostHistory( Id int NOT NULL
+,PostHistoryTypeId smallint NOT NULL
 ,PostId int NOT NULL
-,RevisionGUID uniqueidentifier NOT NULL
+,RevisionGUID character varying(36) NOT NULL
 ,CreationDate datetime NOT NULL
 ,UserId int 
 ,UserDisplayName national character varying(40)  
 ,Comment national character varying(400)  
-,Text national character varying(MAX)  
+,Text text  
 );
 
-GO 
 
-CREATE TABLE PostHistoryTypes( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS PostHistoryTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 );
 
-GO 
 
-CREATE TABLE PostLinks( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS PostLinks( Id int NOT NULL
 ,CreationDate datetime NOT NULL
 ,PostId int NOT NULL
 ,RelatedPostId int NOT NULL
-,LinkTypeId tinyint NOT NULL
+,LinkTypeId smallint NOT NULL
 );
 
-GO 
 
-CREATE TABLE Posts( Id int NOT NULL
-,PostTypeId tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS Posts( Id int NOT NULL
+,PostTypeId smallint NOT NULL
 ,AcceptedAnswerId int 
 ,ParentId int 
 ,CreationDate datetime NOT NULL
 ,DeletionDate datetime 
 ,Score int 
 ,ViewCount int 
-,Body national character varying(MAX)  
+,Body text  
 ,OwnerUserId int 
 ,OwnerDisplayName national character varying(40)  
 ,LastEditorUserId int 
@@ -120,17 +137,17 @@ CREATE TABLE Posts( Id int NOT NULL
 ,CommunityOwnedDate datetime 
 );
 
-GO 
 
-CREATE TABLE PostsWithDeleted( Id int NOT NULL
-,PostTypeId tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS PostsWithDeleted( Id int NOT NULL
+,PostTypeId smallint NOT NULL
 ,AcceptedAnswerId int 
 ,ParentId int 
 ,CreationDate datetime NOT NULL
 ,DeletionDate datetime 
 ,Score int 
 ,ViewCount int 
-,Body national character varying(MAX)  
+,Body text  
 ,OwnerUserId int 
 ,OwnerDisplayName national character varying(40)  
 ,LastEditorUserId int 
@@ -146,107 +163,108 @@ CREATE TABLE PostsWithDeleted( Id int NOT NULL
 ,CommunityOwnedDate datetime 
 );
 
-GO 
 
-CREATE TABLE PostTags( PostId int NOT NULL
+
+CREATE TABLE IF NOT EXISTS PostTags( PostId int NOT NULL
 ,TagId int NOT NULL
 );
 
-GO 
 
-CREATE TABLE PostTypes( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS PostTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 );
 
-GO 
 
-CREATE TABLE ReviewRejectionReasons( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS ReviewRejectionReasons( Id smallint NOT NULL
 ,Name national character varying(100)  NOT NULL
 ,Description national character varying(300)  NOT NULL
-,PostTypeId tinyint 
+,PostTypeId smallint 
 );
 
-GO 
 
-CREATE TABLE ReviewTaskResults( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS ReviewTaskResults( Id int NOT NULL
 ,ReviewTaskId int NOT NULL
-,ReviewTaskResultTypeId tinyint NOT NULL
+,ReviewTaskResultTypeId smallint NOT NULL
 ,CreationDate date 
-,RejectionReasonId tinyint 
+,RejectionReasonId smallint 
 ,Comment national character varying(150)  
 );
 
-GO 
 
-CREATE TABLE ReviewTaskResultTypes( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS ReviewTaskResultTypes( Id smallint NOT NULL
 ,Name national character varying(100)  NOT NULL
 ,Description national character varying(300)  NOT NULL
 );
 
-GO 
 
-CREATE TABLE ReviewTasks( Id int NOT NULL
-,ReviewTaskTypeId tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS ReviewTasks( Id int NOT NULL
+,ReviewTaskTypeId smallint NOT NULL
 ,CreationDate date 
 ,DeletionDate date 
-,ReviewTaskStateId tinyint NOT NULL
+,ReviewTaskStateId smallint NOT NULL
 ,PostId int NOT NULL
 ,SuggestedEditId int 
 ,CompletedByReviewTaskId int 
 );
 
-GO 
 
-CREATE TABLE ReviewTaskStates( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS ReviewTaskStates( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Description national character varying(300)  NOT NULL
 );
 
-GO 
 
-CREATE TABLE ReviewTaskTypes( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS ReviewTaskTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 ,Description national character varying(300)  NOT NULL
 );
 
-GO 
 
-CREATE TABLE SuggestedEdits( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS SuggestedEdits( Id int NOT NULL
 ,PostId int NOT NULL
 ,CreationDate datetime 
 ,ApprovalDate datetime 
 ,RejectionDate datetime 
 ,OwnerUserId int 
 ,Comment national character varying(800)  
-,Text national character varying(MAX)  
+,Text text  
 ,Title national character varying(250)  
 ,Tags national character varying(250)  
-,RevisionGUID uniqueidentifier 
+,RevisionGUID character varying(36)  
 );
 
-GO 
 
-CREATE TABLE SuggestedEditVotes( Id int NOT NULL
+
+
+CREATE TABLE IF NOT EXISTS SuggestedEditVotes( Id int NOT NULL
 ,SuggestedEditId int NOT NULL
 ,UserId int NOT NULL
-,VoteTypeId tinyint NOT NULL
+,VoteTypeId smallint NOT NULL
 ,CreationDate datetime NOT NULL
 ,TargetUserId int 
 ,TargetRepChange int NOT NULL
 );
 
-GO 
 
-CREATE TABLE Tags( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS Tags( Id int NOT NULL
 ,TagName national character varying(35)  
 ,Count int NOT NULL
 ,ExcerptPostId int 
 ,WikiPostId int 
 );
 
-GO 
 
-CREATE TABLE TagSynonyms( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS TagSynonyms( Id int NOT NULL
 ,SourceTagName national character varying(35)  
 ,TargetTagName national character varying(35)  
 ,CreationDate datetime NOT NULL
@@ -258,16 +276,16 @@ CREATE TABLE TagSynonyms( Id int NOT NULL
 ,ApprovalDate datetime 
 );
 
-GO 
 
-CREATE TABLE Users( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS Users( Id int NOT NULL
 ,Reputation int NOT NULL
 ,CreationDate datetime NOT NULL
 ,DisplayName national character varying(40)  
 ,LastAccessDate datetime NOT NULL
 ,WebsiteUrl national character varying(200)  
 ,Location national character varying(100)  
-,AboutMe national character varying(MAX)  
+,AboutMe text  
 ,Views int NOT NULL
 ,UpVotes int NOT NULL
 ,DownVotes int NOT NULL
@@ -277,18 +295,18 @@ CREATE TABLE Users( Id int NOT NULL
 ,AccountId int 
 );
 
-GO 
 
-CREATE TABLE Votes( Id int NOT NULL
+
+CREATE TABLE IF NOT EXISTS Votes( Id int NOT NULL
 ,PostId int NOT NULL
-,VoteTypeId tinyint NOT NULL
+,VoteTypeId smallint NOT NULL
 ,UserId int 
 ,CreationDate datetime 
 ,BountyAmount int 
 );
 
-GO 
 
-CREATE TABLE VoteTypes( Id tinyint NOT NULL
+
+CREATE TABLE IF NOT EXISTS VoteTypes( Id smallint NOT NULL
 ,Name national character varying(50)  NOT NULL
 );

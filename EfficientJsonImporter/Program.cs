@@ -23,6 +23,9 @@ namespace EfficientJsonImporter
 
             // SevenZip.TestExtract();
 
+
+            SchemaGenerator.Test();
+
             // EfficientXmlImport.HorribleFirstAttempt();
             // EfficientXmlImport.Test();
 
@@ -30,9 +33,9 @@ namespace EfficientJsonImporter
             // EfficientXmlExport.SerializationTest();
 
 
-            EfficientJsonHandling.TestTableSerialization();
-            EfficientJsonHandling.TestSerialize();
-            EfficientJsonHandling.TestDeserialize();
+            // EfficientJsonHandling.TestTableSerialization();
+            // EfficientJsonHandling.TestSerialize();
+            // EfficientJsonHandling.TestDeserialize();
 
             System.Console.WriteLine(" --- Press any key to continue --- ");
             System.Console.ReadKey();

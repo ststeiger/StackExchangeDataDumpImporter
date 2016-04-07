@@ -32,7 +32,6 @@ namespace Xml2CSharp
         public long? UserId { get; set; }
 
 
-
         public override string FileName
         {
             get

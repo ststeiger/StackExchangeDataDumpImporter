@@ -38,13 +38,54 @@ namespace EfficientJsonImporter
 
             if (System.StringComparer.InvariantCultureIgnoreCase.Equals(m_DataProvider, typeof(Npgsql.NpgsqlFactory).Namespace))
                 return GetFactory(typeof(Npgsql.NpgsqlFactory));
-
+            
+            if (System.StringComparer.InvariantCultureIgnoreCase.Equals(m_DataProvider, typeof(MySql.Data.MySqlClient.MySqlClientFactory).Namespace))
+                return GetFactory(typeof(MySql.Data.MySqlClient.MySqlClientFactory));
+            
             return GetFactory(typeof(System.Data.SqlClient.SqlClientFactory));
         }
 
 
         public static System.Data.Common.DbProviderFactory m_fact = InitializeFactory();
 
+        public enum DbType_t : int
+        {
+            MS_SQL,
+            PostgreSQL,
+            MySQL,
+            Firebird,
+            Interbase,
+            Oracle,
+            DB2,
+            Sybase, 
+            SQLite,
+
+
+        }
+
+        private static DbType_t? m_dbType;
+
+        public static DbType_t DbType
+        {
+            get{ 
+                if (m_dbType.HasValue)
+                    return m_dbType.Value;
+
+                System.Type t = m_fact.GetType();
+
+                if (object.ReferenceEquals(t, typeof(System.Data.SqlClient.SqlClientFactory)))
+                    m_dbType = DbType_t.MS_SQL;
+                else if(object.ReferenceEquals(t, typeof(Npgsql.NpgsqlFactory)))
+                    m_dbType = DbType_t.PostgreSQL;
+                else if(object.ReferenceEquals(t, typeof(MySql.Data.MySqlClient.MySqlClientFactory)))
+                    m_dbType = DbType_t.MySQL;
+                
+                if(!m_dbType.HasValue)
+                    m_dbType = DbType_t.MS_SQL;
+
+                return m_dbType.Value;
+            }
+        }
 
 
         public static bool Log(System.Exception ex)
@@ -88,6 +129,22 @@ namespace EfficientJsonImporter
 
         protected static string m_staticConnectionString;
         protected static string m_DataProvider;
+
+        public static void GetMyConnectionString()
+        {
+            MySql.Data.MySqlClient.MySqlConnectionStringBuilder csb = new MySql.Data.MySqlClient.MySqlConnectionStringBuilder();
+            csb.Server = "127.0.0.1";
+            csb.Database = "stackexchange";
+
+            csb.UserID = "root";
+            csb.Password = "";
+            csb.Port = 1234;
+            csb.Pooling = false;
+            csb.PersistSecurityInfo = false;
+            csb.ConvertZeroDateTime = false;
+
+        }
+
 
         public static string GetConnectionString()
         {

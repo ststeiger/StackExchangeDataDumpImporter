@@ -47,6 +47,9 @@
     <Reference Include="SharpCompress">
       <HintPath>Libs\SharpCompress.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>Libs\mysql.data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataDumpArchive.cs" />
@@ -65,6 +68,8 @@
     <Compile Include="SQL.cs" />
     <Compile Include="SevenZip.cs" />
     <Compile Include="EfficientXmlExport.cs" />
+    <Compile Include="ScriptSplitter.cs" />
+    <Compile Include="SchemaGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
@@ -79,11 +84,12 @@
     <None Include="SQL\information_schema_columns.DE.SemicolonSeparated.csv" />
     <None Include="SQL\information_schema_columns.DE.SemicolonSeparated.xlsx" />
     <None Include="HTML\stack_exchange_data_dumps.txt" />
+    <None Include="SQL\04d_CreateSchema_AnySQL.sql" />
+    <None Include="Libs\mysql.data.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libs\HtmlAgilityPack\1.4.6\HtmlAgilityPack.dll" />
     <Content Include="Libs\SharpCompress.dll" />
-    <Content Include="SQL\04b_CreateSchema_MySQL.sql" />
     <Content Include="SQL\04b_CreateSchema_PG_SQL.sql" />
     <Content Include="SQL\06_ADD_PK.sql" />
     <Content Include="SQL\04a_CreateSchema_MS_SQL.sql" />
@@ -94,5 +100,6 @@
     <Content Include="SQL\08_ClearData.sql" />
     <Content Include="SQL\07_Infer_ClearData.sql" />
     <Content Include="SQL\09_CheckImport.sql" />
+    <Content Include="SQL\04c_CreateSchema_MySQL.sql" />
   </ItemGroup>
 </Project>
