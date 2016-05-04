@@ -104,73 +104,91 @@ namespace EfficientJsonImporter
 
         public static void SerializeTable(string fileName, string tableName)
         {
+            SerializeTable(fileName, "tableSchema", tableName);
+        } // End Sub SerializeTable
+
+
+        public static void SerializeTable(string fileName, string tableSchema, string tableName)
+        {
+            using (System.IO.FileStream fs = new System.IO.FileStream(fileName
+                , System.IO.FileMode.Create, System.IO.FileAccess.Write, System.IO.FileShare.None))
+            {
+                SerializeTable(fs, tableSchema, tableName);            
+            } // End Using fs
+
+        } // End Sub SerializeTable
+
+
+        public static void SerializeTable(System.IO.Stream fs, string tableSchema, string tableName)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fs, System.Text.Encoding.UTF8))
+            {
+                SerializeTable(sw, tableSchema, tableName);
+            } // End Using  sw
+
+        } // End Sub SerializeTable
+
+
+        public static void SerializeTable(System.IO.StreamWriter sw, string tableSchema, string tableName)
+        {
             bool bOmitNullValues = false;
             bool bPrettyPrint = true;
             Newtonsoft.Json.JsonSerializer ser = new Newtonsoft.Json.JsonSerializer();
 
-            using (System.IO.FileStream fs = new System.IO.FileStream(fileName, System.IO.FileMode.Create, System.IO.FileAccess.Write, System.IO.FileShare.None))
+            using (Newtonsoft.Json.JsonTextWriter jsonWriter = new Newtonsoft.Json.JsonTextWriter(sw))
             {
+                if (bPrettyPrint)
+                    jsonWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+                else
+                    jsonWriter.Formatting = Newtonsoft.Json.Formatting.None;
 
-                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fs, System.Text.Encoding.UTF8))
+                jsonWriter.WriteStartArray();
+
+                using (System.Data.Common.DbDataReader dr = SQL.ExecuteReader("SELECT * FROM \"" + tableName.Replace("\"", "\"\"") + "\";", System.Data.CommandBehavior.SequentialAccess))
                 {
-                    using (Newtonsoft.Json.JsonTextWriter jsonWriter = new Newtonsoft.Json.JsonTextWriter(sw))
+                    if (dr.HasRows)
                     {
-                        if (bPrettyPrint)
-                            jsonWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
-                        else
-                            jsonWriter.Formatting = Newtonsoft.Json.Formatting.None;
+                        int fieldCount = dr.FieldCount;
 
-                        jsonWriter.WriteStartArray();
-
-                        using (System.Data.Common.DbDataReader dr = SQL.ExecuteReader("SELECT * FROM \"" + tableName.Replace("\"", "\"\"") + "\";", System.Data.CommandBehavior.SequentialAccess))
+                        while (dr.Read())
                         {
-                            if (dr.HasRows)
+                            jsonWriter.WriteStartObject();
+
+                            for (int i = 0; i < fieldCount; ++i)
                             {
-                                int fieldCount = dr.FieldCount;
 
-                                while (dr.Read())
+                                object obj = dr.GetValue(i);
+                                if (obj == null)
+                                    continue;
+
+                                System.Type t = obj.GetType();
+
+                                if (bOmitNullValues)
                                 {
-                                    jsonWriter.WriteStartObject();
+                                    if (object.ReferenceEquals(t, typeof(System.DBNull)))
+                                        continue;
+                                } // End if (bOmitNullValues)
 
-                                    for (int i = 0; i < fieldCount; ++i)
-                                    {
+                                if (object.ReferenceEquals(t, typeof(System.DateTime)))
+                                {
+                                    System.DateTime dt = (System.DateTime)obj;
+                                    obj = dt.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff", System.Globalization.CultureInfo.InvariantCulture);
+                                } // End if (object.ReferenceEquals(obj.GetType(), typeof(System.DateTime)))
 
-                                        object obj = dr.GetValue(i);
-                                        if (obj == null)
-                                            continue;
+                                string colName = dr.GetName(i);
+                                jsonWriter.WritePropertyName(colName);
+                                jsonWriter.WriteValue(obj);
+                            } // Next i
 
-                                        System.Type t = obj.GetType();
+                            jsonWriter.WriteEndObject();
+                        } // Whend while (dr.Read())
 
-                                        if (bOmitNullValues)
-                                        {
-                                            if (object.ReferenceEquals(t, typeof(System.DBNull)))
-                                                continue;
-                                        } // End if (bOmitNullValues)
+                    } // End if (dr.HasRows)
 
-                                        if (object.ReferenceEquals(t, typeof(System.DateTime)))
-                                        {
-                                            System.DateTime dt = (System.DateTime)obj;
-                                            obj = dt.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff", System.Globalization.CultureInfo.InvariantCulture);
-                                        } // End if (object.ReferenceEquals(obj.GetType(), typeof(System.DateTime)))
+                } // End using dr 
 
-                                        string colName = dr.GetName(i);
-                                        jsonWriter.WritePropertyName(colName);
-                                        jsonWriter.WriteValue(obj);
-                                    } // Next i
-
-                                    jsonWriter.WriteEndObject();
-                                } // Whend while (dr.Read())
-
-                            } // End if (dr.HasRows)
-
-                        } // End using dr 
-
-                        jsonWriter.WriteEnd(); // WriteRaw("]", fs);
-                    } // End Using jsonWriter 
-
-                } // End Using  sw
-
-            } // End Using fs
+                jsonWriter.WriteEnd(); // WriteRaw("]", fs);
+            } // End Using jsonWriter 
 
         } // End Sub SerializeTable
 

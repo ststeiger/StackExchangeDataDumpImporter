@@ -118,9 +118,15 @@ namespace EfficientJsonImporter
                                     System.DateTime dt = (System.DateTime)obj;
                                     obj = dt.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff", System.Globalization.CultureInfo.InvariantCulture);
                                 } // End if (object.ReferenceEquals(obj.GetType(), typeof(System.DateTime)))
+                                else if (object.ReferenceEquals(t, typeof(System.Guid)))
+                                {
+                                    System.Guid uid = (System.Guid)obj;
+                                    obj = uid.ToString();
+                                } // else if (object.ReferenceEquals(t, typeof(System.Guid)))
 
                                 string colName = dr.GetName(i);
-                                writer.WriteStartAttribute(colName);
+                                string xmlColName = colName.Replace(" ", "_x0020_");
+                                writer.WriteStartAttribute(xmlColName);
                                 writer.WriteValue(obj);
                                 writer.WriteEndAttribute();
 
